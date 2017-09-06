@@ -1,6 +1,6 @@
 # CSV to JSON
 
-REST API to profile, validate and transform CSV data to various structured data formats (especially JSON). The goal is to make cleaning and importing crappy data to various data stores less painful.
+Work in progress. The goal is a REST API to profile, validate and transform CSV data to various structured data formats (especially JSON). The goal is to make cleaning and importing crappy data to various data stores less painful.
 
 ## API features
 
