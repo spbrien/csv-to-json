@@ -51,11 +51,11 @@ This should give a response similar to what's shown below:
 }
 ```
 
-The response contains the data from the CSV or TSV converted to JSON, an id for the dataset, a number of `actions` available to run on the data, a list of ids for different revisions that have been created from the data, and the revision of the returned data.
+The response contains the data from the CSV or TSV converted to JSON, an `_id` for the dataset, a number of `actions` available to run on the data, a list of ids for different revisions that have been created from the data, and the revision of the returned data.
 
 ---
 
-You can now retrieve this dataset using it's `_id`, which will give you the same response as above:
+You can now retrieve this dataset using its `_id`, which will give you the same response as above:
 
 ```
 http localhost:5000/a0a0c79d3b735499cfcacc82b8116cf6014322f7
