@@ -1,0 +1,7 @@
+*.pyc
+*.dump
+data/**
+pip-selfcheck.json
+.Python
+venv
+settings.py
