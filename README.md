@@ -2,6 +2,35 @@
 
 Work in progress. The goal is a REST API to profile, validate and transform CSV data to various structured data formats (especially JSON). Ideally this would make cleaning and importing crappy data to various data stores less painful.
 
+## Requirements
+
+* [pip](https://pip.pypa.io/en/stable/installing/)
+* [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
+
+## Installation
+
+```
+# Make a new directory for your project
+mkdir my-new-project
+cd my-new-project
+
+# Create a python virtual environment
+virtualenv venv
+source venv/bin/activate
+
+# Install python dependencies
+pip install -r requirements.txt
+
+# Copy the settings.py.template file
+cp settings.py.template settings.py
+
+**Be Sure to fill out AWS credentials in the newly created settings.py file**
+
+# Run a local dev instance
+./run.sh
+```
+
+
 ## API features
 
 Examples below use [httpie](https://github.com/jakubroztocil/httpie). There's a usage cheatsheet at [http://ricostacruz.com/cheatsheets/httpie](http://ricostacruz.com/cheatsheets/httpie) if you're not familiar with the cli tool.
