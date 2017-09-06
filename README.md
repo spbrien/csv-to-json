@@ -9,7 +9,7 @@ Work in progress. The goal is a REST API to profile, validate and transform CSV 
 
 ## Installation
 
-```
+```bash
 # Make a new directory for your project
 mkdir my-new-project
 cd my-new-project
@@ -24,7 +24,7 @@ pip install -r requirements.txt
 # Copy the settings.py.template file
 cp settings.py.template settings.py
 
-**Be Sure to fill out AWS credentials in the newly created settings.py file**
+# **Be Sure to fill out AWS credentials in the newly created settings.py file**
 
 # Run a local dev instance
 ./run.sh
