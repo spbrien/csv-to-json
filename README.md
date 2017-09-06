@@ -4,7 +4,7 @@ REST API to profile, validate and transform CSV data to various structured data 
 
 ## API features
 
-Example use [httpie](https://github.com/jakubroztocil/httpie). There's a usage cheatsheet at [http://ricostacruz.com/cheatsheets/httpie](http://ricostacruz.com/cheatsheets/httpie) if you're not familiar with the cli tool.
+Examples below use [httpie](https://github.com/jakubroztocil/httpie). There's a usage cheatsheet at [http://ricostacruz.com/cheatsheets/httpie](http://ricostacruz.com/cheatsheets/httpie) if you're not familiar with the cli tool.
 
 ---
 
