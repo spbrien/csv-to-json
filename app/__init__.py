@@ -67,6 +67,9 @@ def resource(_id, _revision):
             # Create an initial result
             result = None
 
+            # Apply filters 
+            # TODO: Filtering
+
             # Apply available actions
             if request_actions:
                 result = process_actions(
@@ -93,7 +96,7 @@ def resource(_id, _revision):
 
             # Process Analysis and add _meta to result
             # TODO: write analysis functions
-            
+
             return jsonify(result), 200
 
     return jsonify({
