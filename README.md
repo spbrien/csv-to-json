@@ -80,25 +80,25 @@ This should give a response similar to what's shown below:
 }
 ```
 
-The response contains the data from the CSV or TSV converted to JSON, an `_id` for the dataset, a number of `actions` available to run on the data, a list of ids for different revisions that have been created from the data, and the revision of the returned data.
+The response contains the data from the CSV or TSV converted to JSON, an `_id` for the dataset, a number of `_actions` available to run on the data, a list of ids for different revisions that have been created from the data, and the revision of the returned data.
 
 ---
 
 You can now retrieve this dataset using its `_id`, which will give you the same response as above:
 
 ```
-http localhost:5000/a0a0c79d3b735499cfcacc82b8116cf6014322f7
+http localhost:5000/<id>
 ```
 
 Or you can retrieve a certain revision of this dataset using the revision's id. The first revision has the same id as the entire dataset:
 
 ```
-http localhost:5000/a0a0c79d3b735499cfcacc82b8116cf6014322f7/a0a0c79d3b735499cfcacc82b8116cf6014322f7
+http localhost:5000/<id>/<revision>
 ```
 
 ---
 
-You can perform actions listed in `available_actions` using a query string. Actions can be applied to every item in every column:
+You can perform actions listed in `_available` using a query string. Actions can be applied to every item in every column:
 
 ```
 http localhost:5000/<id> actions=='[{"action":"convert_to_ascii_with_ignore"}]'
@@ -117,3 +117,10 @@ http localhost:5000/<id>/<revision> actions=='[{"action":"convert_to_ascii_with_
 ```
 
 Response from running an action will add new revisions to the list of `_all_revisions`. Each revision shows which actions have been run to produce that version of the data. These are listed in `_processed`.
+
+## TODO
+
+* Document deployment process
+* Error checking, tests, and bugs
+* Package project into stand-alone library with cli, init script, and scaffolding
+* Add a plugins system so that new action functions can be created easily
