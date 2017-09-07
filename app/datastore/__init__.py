@@ -3,7 +3,7 @@ import os
 import bucketstore
 from flask import current_app
 
-class AmazonMediaStorage():
+class AmazonS3Storage():
     """
     Amazon S3 media storage
     """

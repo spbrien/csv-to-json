@@ -31,7 +31,7 @@ def index():
         hasher.update(result)
         _id = hasher.hexdigest()
 
-        storage = AmazonMediaStorage(app, _id)
+        storage = AmazonS3Storage(app, _id)
         storage.put(result, _id)
 
     return jsonify({
@@ -53,7 +53,7 @@ def index():
 @app.route('/<_id>', methods=['GET'], defaults={'_revision': None})
 @app.route('/<_id>/<_revision>')
 def resource(_id, _revision):
-    storage = AmazonMediaStorage(app, _id, create=False)
+    storage = AmazonS3Storage(app, _id, create=False)
     available_actions = [key for key, value in actions.iteritems()]
 
     if storage:
@@ -67,7 +67,7 @@ def resource(_id, _revision):
             # Create an initial result
             result = None
 
-            # Apply filters 
+            # Apply filters
             # TODO: Filtering
 
             # Apply available actions
