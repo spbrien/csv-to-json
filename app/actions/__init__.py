@@ -1,4 +1,4 @@
-from manipulation import *
+from functions import *
 
 actions = {
     'infer_types': infer_types,

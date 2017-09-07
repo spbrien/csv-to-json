@@ -11,7 +11,7 @@ import settings
 from datastore import AmazonMediaStorage
 
 from actions import actions
-from dispatch import map_action
+from responses import process_actions, simple_result
 
 # Init App
 app = Flask(__name__)
@@ -21,7 +21,6 @@ app.config.from_object(settings)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # Set up vars
-    has_consistent_types = True
     sep = request.args.get('sep')
 
     if 'csv' in request.files:
@@ -54,8 +53,6 @@ def index():
 @app.route('/<_id>', methods=['GET'], defaults={'_revision': None})
 @app.route('/<_id>/<_revision>')
 def resource(_id, _revision):
-    data = None
-    r = None
     storage = AmazonMediaStorage(app, _id, create=False)
     available_actions = [key for key, value in actions.iteritems()]
 
@@ -64,59 +61,41 @@ def resource(_id, _revision):
         raw_data, current_meta = storage.get(current)
         data = pandas.read_json(raw_data)
         if not data.empty:
+            # Get all transformation and analysis queries
             request_actions = request.args.get('actions')
+
+            # Create an initial result
+            result = None
+
+            # Apply available actions
             if request_actions:
-                a = json.loads(request_actions)
-                for item in a:
-                    fname = item.get('action', None)
-                    columns = item.get('columns', None)
-                    data, applied = map_action(fname, data, columns)
-                    if applied:
-                        if 'actions' in current_meta:
-                            current_actions = json.loads(current_meta['actions'])
-                            current_actions.append(item)
-                            current_meta['actions'] = json.dumps(current_actions)
-                        else:
-                            current_meta['actions'] = json.dumps([item])
+                result = process_actions(
+                    available_actions,
+                    request_actions,
+                    data,
+                    current_meta,
+                    storage,
+                    current,
+                    _revision,
+                    _id
+                )
 
-                result = data.to_json(orient='records')
-                hasher = hashlib.sha1()
-                hasher.update(result)
-                revision = hasher.hexdigest()
-                if revision is not current:
-                    r = storage.put(result, revision, metadata=current_meta)
+            # If we didn't have actions to apply
+            if not result:
+                result = simple_result(
+                    request_actions,
+                    data,
+                    current_meta,
+                    storage,
+                    _revision,
+                    _id
+                )
 
-                return jsonify({
-                    '_meta': {
-                    },
-                    '_actions': {
-                        '_available': available_actions,
-                        '_processed': json.loads(current_meta['actions'])
-                    },
-                    '_record': {
-                        '_id': _id,
-                        '_current_revision': revision if r else current,
-                        '_all_revisions': storage.list_revisions()
-                    },
-                    'data': json.loads(result)
-                })
-            else:
-                result = data.to_json(orient="records")
-                return jsonify({
-                    '_meta': {
-                    },
-                    '_actions': {
-                        '_available': available_actions,
-                        '_processed': json.loads(current_meta['actions']) \
-                            if 'actions' in current_meta else []
-                    },
-                    '_record': {
-                        '_id': _id,
-                        '_current_revision': _revision if _revision else _id,
-                        '_all_revisions': storage.list_revisions()
-                    },
-                    'data': json.loads(result)
-                })
+            # Process Analysis and add _meta to result
+            # TODO: write analysis functions
+            
+            return jsonify(result), 200
+
     return jsonify({
         'status': 404,
         'msg': 'Not found'

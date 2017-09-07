@@ -12,7 +12,6 @@ class AmazonMediaStorage():
         # Get settings from App config
         aws_access_key_id = app.config['AWS_ACCESS_KEY_ID']
         aws_secret_access_key = app.config['AWS_SECRET_ACCESS_KEY']
-        bucket_name = app.config['AWS_BUCKET']
 
         # Initialize our S3 Bucket
         bucketstore.login(aws_access_key_id, aws_secret_access_key)

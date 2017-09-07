@@ -1,20 +1,6 @@
 import strconv
 
-# ---------------------
-# Utilities
-# ---------------------
-
-def map_dataframe(f):
-    def wrapper(data, columns=None):
-        for item in data.columns:
-            if columns:
-                if item in columns:
-                    data[item] = data[item].apply(f)
-            else:
-                data[item] = data[item].apply(f)
-        return data
-    return wrapper
-
+from app.utils import map_dataframe
 
 # ---------------------
 # Functions
