@@ -70,7 +70,7 @@ def resource(_id, _revision):
             # Apply filters
             # TODO: Filtering
 
-            # Apply available actions
+            # Apply actions
             if request_actions:
                 result = process_actions(
                     available_actions,
@@ -83,7 +83,10 @@ def resource(_id, _revision):
                     _id
                 )
 
-            # If we didn't have actions to apply
+            # Apply validation / normalization
+            # TODO: validation and normalization
+
+            # If we didn't have actions or validation to apply
             if not result:
                 result = simple_result(
                     request_actions,

@@ -1,3 +1,8 @@
+"""
+Simple, one-off actions that can be applied
+regardless of schema
+"""
+
 from functions import *
 
 actions = {
