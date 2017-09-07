@@ -9,7 +9,7 @@ def simple_result(actions, data, meta, storage, _revision, _id):
     return {
         '_actions': {
             '_available': actions,
-            '_processed': json.loads(meta['actions']) \
+            '_processed': meta['actions'] \
                 if 'actions' in meta else []
         },
         '_record': {
@@ -37,11 +37,11 @@ def process_actions(
         data, applied = map_action(fname, data, columns)
         if applied:
             if 'actions' in meta:
-                current_actions = json.loads(meta['actions'])
+                current_actions = meta['actions']
                 current_actions.append(item)
-                meta['actions'] = json.dumps(current_actions)
+                meta['actions'] = current_actions
             else:
-                meta['actions'] = json.dumps([item])
+                meta['actions'] = [item]
 
     result = data.to_json(orient='records')
     hasher = hashlib.sha1()
@@ -55,7 +55,7 @@ def process_actions(
     return {
         '_actions': {
             '_available': available_actions,
-            '_processed': json.loads(meta['actions'])
+            '_processed': meta['actions']
         },
         '_record': {
             '_id': _id,

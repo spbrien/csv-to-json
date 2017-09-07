@@ -1,7 +1,10 @@
 import os
+import json
 
 import bucketstore
 from flask import current_app
+
+METADATA_KEYS = ['actions', 'analysis', 'validation']
 
 class AmazonS3Storage():
     """
@@ -34,7 +37,12 @@ class AmazonS3Storage():
         Returns a tuple of the data and the metadata of the object
         """
         item = self.bucket.key(revision)
-        meta = item.meta
+        # TODO: transform metadata to pyton dicts from JSON strings
+        meta = {}
+        for k, v in item.meta.iteritems():
+            if k in METADATA_KEYS:
+                meta[k] = json.loads(v)
+
         return self.bucket[revision], meta \
             if revision in self.bucket.list() else None
 
@@ -47,6 +55,9 @@ class AmazonS3Storage():
         if self.exists(revision):
             return self.get(revision)
         else:
+            for k, v in metadata.iteritems():
+                if k in METADATA_KEYS:
+                    metadata[k] = json.dumps(v)
             try:
                 item = self.bucket.key(revision)
                 item.set(content, metadata=metadata)

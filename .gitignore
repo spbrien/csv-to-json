@@ -5,3 +5,5 @@ pip-selfcheck.json
 .Python
 venv
 settings.py
+
+NOTES.md

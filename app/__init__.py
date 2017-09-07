@@ -8,7 +8,7 @@ import numpy
 from flask import Flask, request, jsonify
 
 import settings
-from datastore import AmazonMediaStorage
+from datastore import AmazonS3Storage
 
 from actions import actions
 from responses import process_actions, simple_result
