@@ -81,3 +81,54 @@ class AmazonS3Storage():
         for a new file.
         """
         return revision in self.bucket.list()
+
+
+class MongoDBStorage():
+    """
+    Amazon S3 media storage
+    """
+
+    def __init__(self, app, _id, create=True):
+        """
+        Logs in to the database or storage service
+        Creates a new table, set, bucket, whatever per CSV / dataset
+        """
+        # Get settings from App config
+        username = app.config['DB_USERNAME']
+        password= app.config['DB_PASSWORD']
+
+        # Initialize our S3 Bucket
+
+    def list_revisions(self):
+        """
+        Lists all revisions for current dataset
+        """
+        pass
+
+    def get(self, revision):
+        """
+        Get an object from storage.
+        Returns a tuple of the data and the metadata of the object
+        """
+        pass
+
+    def put(self, content, revision, metadata={}):
+        """
+        Put an object in storage, saves metadata with the object,
+        returns the data from the object if successful,
+        else returns None
+        """
+        pass
+
+    def delete(self, revision):
+        """
+        Deletes the file referenced by revision.
+        """
+        pass
+
+    def exists(self, revision):
+        """ Returns True if an object referenced by the given name or unique id
+        already exists in the storage system, or False if the name is available
+        for a new file.
+        """
+        pass
