@@ -32,3 +32,15 @@ def remove_quotes(item):
     item = item.replace('"', '')
     item = item.replace("'", "" )
     return item
+
+@map_dataframe
+def to_lowercase(item):
+    if isinstance(item, basestring):
+        return item.lower()
+    return item
+
+@map_dataframe
+def to_uppercase(item):
+    if isinstance(item, basestring):
+        return item.upper()
+    return item

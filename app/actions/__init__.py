@@ -10,5 +10,7 @@ actions = {
     'convert_to_ascii_with_html': convert_to_ascii_with_html,
     'convert_to_ascii_with_ignore': convert_to_ascii_with_ignore,
     'remove_quotes': remove_quotes,
-    'split_by_comma': split_by_comma
+    'split_by_comma': split_by_comma,
+    'to_lowercase': to_lowercase,
+    'to_uppercase': to_uppercase
 }
