@@ -24,7 +24,7 @@ def apply_to_column(f):
     Decorator to apply a function to a pandas
     DataFrame column.
     """
-    def wrapper(data, column):
-        return f(data[column])
+    def wrapper(data, columns=None):
+        return f(data[columns])
 
     return wrapper

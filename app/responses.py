@@ -1,7 +1,9 @@
 import hashlib
 import json
 
-from dispatch import map_action
+import pandas
+
+from dispatch import map_action, map_analysis
 
 
 def simple_result(actions, data, meta, storage, _revision, _id):
@@ -64,3 +66,22 @@ def process_actions(
         },
         'data': json.loads(result)
     }
+
+
+def process_analysis(available_analysis, analysis, data):
+    data_dict = data.get('data', None)
+    df = pandas.DataFrame.from_dict(data_dict)
+
+    a = json.loads(analysis)
+    data['_analysis'] = {
+        '_available': available_analysis,
+        '_processed': {}
+    }
+    for item in a:
+        fname = item.get('action', None)
+        column = item.get('column', None)
+        if fname and column:
+            key, value = map_analysis(fname, df, column)
+            data['_analysis']['_processed'][key] = value
+
+    return data
